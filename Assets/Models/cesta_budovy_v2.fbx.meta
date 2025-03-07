@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: 047596df3284d8d48af0ca45fc5fe12f
+guid: e9d36e1bdefe3a143b686cac76581cf3
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
   externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ancient building
+    second: {fileID: 2100000, guid: 0f6c35aa731c3ff4c9a1db7116ec422e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -12,8 +17,73 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Building 4
+    second: {fileID: 2100000, guid: a26eb18d5621eb444a6dcc1a76cc7cdd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Building1
+    second: {fileID: 2100000, guid: afe2d783c2040514cbf3c5fc1eec2448, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Building2
+    second: {fileID: 2100000, guid: 77791b5e64024dc45b2b115f006a05d9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Building5
+    second: {fileID: 2100000, guid: 67ff70c5e043a2446ba65ff970810cff, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Common Building Brick.002
+    second: {fileID: 2100000, guid: 51dbaea789d2d7e4eb9416aaf49f1bbb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Concrete
+    second: {fileID: 2100000, guid: e93e3d1219ca5214ca745acf30319a36, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Concrete.001
+    second: {fileID: 2100000, guid: 03d0627524ba0b146adc3b6792e0603d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Office
+    second: {fileID: 2100000, guid: 9f9321060f784ba4985e4dbd4ab55758, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PBR building 3
+    second: {fileID: 2100000, guid: 3d4fe9565e7c6b8458784bfbc49eee49, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PBR building in night
+    second: {fileID: 2100000, guid: 2d9deecfb2cf9184fbf9cd424ce2c68c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Plaster with lines
     second: {fileID: 2100000, guid: df2add0434370aa45a59d05c281fe968, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Polished Concrete
+    second: {fileID: 2100000, guid: 1080eb8c6a3ffb143a639cdf0fc06ad9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Red Brick Building Facade
+    second: {fileID: 2100000, guid: 030fed01c30b1b745a16927b47f29d2c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Roof 01 Material
+    second: {fileID: 2100000, guid: 2936f38765523ec4ebb571d9749a94c3, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
