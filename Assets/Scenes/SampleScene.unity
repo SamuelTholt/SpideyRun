@@ -324,7 +324,7 @@ Transform:
   m_GameObject: {fileID: 763515859}
   serializedVersion: 2
   m_LocalRotation: {x: 0.06304214, y: -0.7042909, z: 0.06304214, w: 0.7042909}
-  m_LocalPosition: {x: 24.4, y: 6.87, z: -14.83}
+  m_LocalPosition: {x: 24.4, y: 6.87, z: -14.37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -383,6 +383,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1097874193}
+  - component: {fileID: 1097874194}
   m_Layer: 0
   m_Name: Hrac
   m_TagString: Untagged
@@ -399,13 +400,27 @@ Transform:
   m_GameObject: {fileID: 1097874192}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.025875, y: 0.12545586, z: -21.264221}
+  m_LocalPosition: {x: 15.12413, y: 1.055456, z: -13.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1132183406}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1097874194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097874192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d1592514d0f6044fb5248f11586aab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  laneDistance: 4.79
+  moveSpeed: 10
 --- !u!1 &1118893372
 GameObject:
   m_ObjectHideFlags: 0
@@ -556,8 +571,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1132183405}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 33.15, y: 0.6, z: 7.31}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -673,8 +688,8 @@ Rigidbody:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
+  m_ImplicitCom: 0
+  m_ImplicitTensor: 0
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
