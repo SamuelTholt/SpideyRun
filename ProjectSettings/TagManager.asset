@@ -6,6 +6,7 @@ TagManager:
   tags:
   - TriggerWall
   - DestroyWall
+  - DestroyCar
   layers:
   - Default
   - TransparentFX

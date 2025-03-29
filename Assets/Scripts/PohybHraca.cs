@@ -5,9 +5,6 @@ public class PohybHraca : MonoBehaviour
     public float moveSpeed = 10.0f;
 
     public Animator playerAnim;
-
-    public bool strafing;
-
     private Vector3 leftPosition = new Vector3(15.12413f, 1.055456f, -18.66f);
     private Vector3 middlePosition = new Vector3(15.12413f, 1.055456f, -13.87f);
     private Vector3 rightPosition = new Vector3(15.12413f, 1.055456f, -9.08f);
@@ -50,6 +47,7 @@ public class PohybHraca : MonoBehaviour
                 playerAnim.SetTrigger("left_strafe");
                 playerAnim.ResetTrigger("run");
                 targetPosition = leftPosition;
+
             }
 
         }
