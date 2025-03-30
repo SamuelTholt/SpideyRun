@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Linq;
 
 public class CarSpawner : MonoBehaviour
 {
@@ -27,8 +28,53 @@ public class CarSpawner : MonoBehaviour
         int randomCarIndex = Random.Range(0, carPrefabs.Length);
         int randomLaneIndex = Random.Range(0, spawnPoints.Length);
 
+        GameObject selectedCarType = carPrefabs[randomCarIndex];
         Quaternion rotation = Quaternion.Euler(0, 180, 0);
 
-        Instantiate(carPrefabs[randomCarIndex], spawnPoints[randomLaneIndex].position, rotation);
+        if (selectedCarType.name.Contains("car1"))
+        {
+            rotation = Quaternion.Euler(0, 180, 0);
+        }
+
+        string[] rotatedCars = { "car2", "truck1" };
+
+        if (rotatedCars.Any(name => selectedCarType.name.Contains(name)))
+        {
+            rotation = Quaternion.Euler(0, 0, 0);
+        }
+
+        GameObject spawnedCar = Instantiate(carPrefabs[randomCarIndex], spawnPoints[randomLaneIndex].position, rotation);
+
+        SetRandomCarColor(spawnedCar);
+        //Instantiate(carPrefabs[randomCarIndex], spawnPoints[randomLaneIndex].position, rotation);
+    }
+
+
+    void SetRandomCarColor(GameObject car)
+    {
+        MeshRenderer carRenderer = car.GetComponentInChildren<MeshRenderer>();
+
+        if (carRenderer != null)
+        {
+            
+            int materialIndex = -1;
+            for (int i = 0; i < carRenderer.materials.Length; i++)
+            {
+                if (carRenderer.materials[i].name.Contains("CarColor"))
+                {
+                    materialIndex = i;
+                    break;
+                }
+            }
+
+            if (materialIndex != -1)
+            {
+                carRenderer.materials[materialIndex].color = new Color(Random.value, Random.value, Random.value);
+            }
+            else
+            {
+                Debug.LogWarning("Materiál 'CarColor' nebol nájdený na " + car.name);
+            }
+        }
     }
 }

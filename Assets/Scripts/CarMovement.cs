@@ -1,15 +1,29 @@
 using UnityEngine;
+using System.Linq;
 
 public class CarMovement : MonoBehaviour
 {
     public float rychlostPohybu = 25.0f;
+    private Vector3 smerPohybu = Vector3.left;
+
 
     private void Start()
     {
+        if (gameObject.name.Contains("car1"))
+        {
+            smerPohybu = Vector3.left;
+        }
+
+        string[] rotatedCars = { "car2", "truck1" };
+
+        if (rotatedCars.Any(name => gameObject.name.Contains(name)))
+        {
+            smerPohybu = Vector3.right;
+        }
     }
     void Update()
     {
-        transform.Translate(Vector3.left * rychlostPohybu * Time.deltaTime);
+        transform.Translate(smerPohybu * rychlostPohybu * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
