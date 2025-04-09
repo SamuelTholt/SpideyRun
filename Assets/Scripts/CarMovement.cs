@@ -13,11 +13,7 @@ public class CarMovement : MonoBehaviour
         {
             smerPohybu = Vector3.left;
         }
-
-        string[] rotatedCars = { "car2", "truck1" };
-
-        if (rotatedCars.Any(name => gameObject.name.Contains(name)))
-        {
+        else {
             smerPohybu = Vector3.right;
         }
     }

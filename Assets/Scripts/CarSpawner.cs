@@ -35,17 +35,16 @@ public class CarSpawner : MonoBehaviour
         {
             rotation = Quaternion.Euler(0, 180, 0);
         }
-
-        string[] rotatedCars = { "car2", "truck1" };
-
-        if (rotatedCars.Any(name => selectedCarType.name.Contains(name)))
-        {
+        else {
             rotation = Quaternion.Euler(0, 0, 0);
         }
 
         GameObject spawnedCar = Instantiate(carPrefabs[randomCarIndex], spawnPoints[randomLaneIndex].position, rotation);
 
-        SetRandomCarColor(spawnedCar);
+        string[] changeColorCars = { "car2", "truck1", "truck2", "bus", "monstertruck" };
+        if (changeColorCars.Any(name => selectedCarType.name.Contains(name))) {
+            SetRandomCarColor(spawnedCar);
+        }
         //Instantiate(carPrefabs[randomCarIndex], spawnPoints[randomLaneIndex].position, rotation);
     }
 
