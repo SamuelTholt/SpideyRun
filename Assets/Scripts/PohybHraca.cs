@@ -1,8 +1,18 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class PohybHraca : MonoBehaviour
 {
+    
     public float moveSpeed = 10.0f;
+
+    public float jumpVyska = 5.0f;
+    public float jumpCas = 2.0f;
+
+    public AnimationCurve curve;
+    private bool isJumping = false;
+    private bool isStrafing = false;
 
     public Animator playerAnim;
     private Vector3 leftPosition = new Vector3(15.12413f, 1.055456f, -18.66f);
@@ -23,9 +33,16 @@ public class PohybHraca : MonoBehaviour
 
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
 
-         if (playerAnim != null && transform.position == targetPosition)
+        if (playerAnim != null)
         {
-            playerAnim.SetTrigger("run");
+            if (transform.position == targetPosition && !isJumping && !isStrafing)
+            {
+                playerAnim.SetTrigger("run");
+            }
+            else
+            {
+                playerAnim.ResetTrigger("run");
+            }
         }
     }
 
@@ -49,7 +66,7 @@ public class PohybHraca : MonoBehaviour
                 targetPosition = leftPosition;
 
             }
-
+            //StartCoroutine(StrafeCooldown());
         }
 
         if ((Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) && targetPosition != rightPosition)
@@ -66,6 +83,57 @@ public class PohybHraca : MonoBehaviour
                 playerAnim.ResetTrigger("run");
                 targetPosition = rightPosition;
             }
+            //StartCoroutine(StrafeCooldown());
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
+        {
+            StartCoroutine(Jump());         
         }
     }
+
+    private IEnumerator StrafeCooldown()
+    {
+        isStrafing = true;
+        yield return new WaitForSeconds(jumpCas);
+        isStrafing = false;
+    }
+
+    private IEnumerator Jump()
+    {
+        isJumping = true;
+
+        if (playerAnim != null)
+        {
+            playerAnim.SetTrigger("jump");
+            playerAnim.ResetTrigger("run");
+        }
+
+        Vector3 startPos = transform.position;
+        Vector3 peakPos = new Vector3(startPos.x, startPos.y + jumpVyska, startPos.z);
+
+        float elapsedTime = 0f;
+
+        // Skok hore
+        while (elapsedTime < jumpCas / 2)
+        {
+            transform.position = Vector3.Lerp(startPos, peakPos, (elapsedTime / (jumpCas / 2)));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Skok dole
+        elapsedTime = 0f;
+        while (elapsedTime < jumpCas / 2)
+        {
+            transform.position = Vector3.Lerp(peakPos, startPos, (elapsedTime / (jumpCas / 2)));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = startPos;
+        isJumping = false;
+    }
+
+
 }
