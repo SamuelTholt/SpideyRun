@@ -16,7 +16,7 @@ public class PohybHraca : MonoBehaviour
     private bool isRolling = false;
 
     private float lastRollTime = -Mathf.Infinity;
-    private float actionCooldown = 2.0f;
+    private float actionCooldown = 1.5f;
 
     public Animator playerAnim;
     private Vector3 leftPosition = new Vector3(15.12413f, 1.055456f, -18.66f);
@@ -111,6 +111,12 @@ public class PohybHraca : MonoBehaviour
 
     public void FinishStrafe()
     {
+        StartCoroutine(DelayedStrafeFinish());
+    }
+
+    private IEnumerator DelayedStrafeFinish()
+    {
+        yield return new WaitForSeconds(0.05f);
         isStrafing = false;
     }
 
@@ -161,33 +167,39 @@ public class PohybHraca : MonoBehaviour
             playerAnim.ResetTrigger("run");
         }
 
+        CapsuleCollider capsule = GetComponentInChildren<CapsuleCollider>();
+        float originalHeight = capsule.height;
+        Vector3 originalCenter = capsule.center;
 
-        Vector3 originalPosition = transform.position;
-        Vector3 pronePosition = new Vector3(originalPosition.x, originalPosition.y - 0.5f, originalPosition.z);
+        float targetHeight = originalHeight / 4f;
+        Vector3 targetCenter = new Vector3(originalCenter.x, originalCenter.y - 0.5f, originalCenter.z);
 
+        float rollDuration = playerAnim.GetCurrentAnimatorStateInfo(0).length;
+        float time = 0f;
 
-        AnimatorStateInfo stateInfo = playerAnim.GetCurrentAnimatorStateInfo(0);
-        float rollDuration = stateInfo.length;
-
-        float rollTime = 0f;
-
-
-        while (rollTime < rollDuration)
+        while (time < rollDuration / 2)
         {
-            transform.position = Vector3.Lerp(originalPosition, pronePosition, rollTime / rollDuration);
-            rollTime += Time.deltaTime;
+            capsule.height = Mathf.Lerp(originalHeight, targetHeight, time / (rollDuration / 2));
+            capsule.center = Vector3.Lerp(originalCenter, targetCenter, time / (rollDuration / 2));
+            time += Time.deltaTime;
             yield return null;
         }
 
-        float upTime = 0f;
-        while (upTime < rollDuration / 2)
+        yield return new WaitForSeconds(rollDuration / 2);
+        time = 0f;
+        while (time < rollDuration / 2)
         {
-            transform.position = Vector3.Lerp(pronePosition, originalPosition, upTime / (rollDuration / 2));
-            upTime += Time.deltaTime;
+            capsule.height = Mathf.Lerp(targetHeight, originalHeight, time / (rollDuration / 2));
+            capsule.center = Vector3.Lerp(targetCenter, originalCenter, time / (rollDuration / 2));
+            time += Time.deltaTime;
             yield return null;
         }
-        transform.position = originalPosition;
+
+        capsule.height = originalHeight;
+        capsule.center = originalCenter;
+
         isRolling = false;
     }
+
 
 }
