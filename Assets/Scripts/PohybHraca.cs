@@ -10,7 +10,6 @@ public class PohybHraca : MonoBehaviour
     public float jumpVyska = 5.0f;
     public float jumpCas = 2.0f;
 
-    public AnimationCurve curve;
     private bool isJumping = false;
     private bool isStrafing = false;
 
@@ -51,52 +50,63 @@ public class PohybHraca : MonoBehaviour
 
         if (playerAnim == null) return;
 
-        if ((Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) && targetPosition != leftPosition)
-        {
-            if (targetPosition == rightPosition)
+        if (!isJumping) {
+            if ((Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) && targetPosition != leftPosition)
             {
-                playerAnim.SetTrigger("left_strafe");
-                playerAnim.ResetTrigger("run");
-                targetPosition = middlePosition;
-            }
-            else
-            {
-                playerAnim.SetTrigger("left_strafe");
-                playerAnim.ResetTrigger("run");
-                targetPosition = leftPosition;
+                if (targetPosition == rightPosition)
+                {
+                    playerAnim.SetTrigger("left_strafe");
+                    //playerAnim.ResetTrigger("run");
+                    targetPosition = middlePosition;
+                    isStrafing = true;
+                }
+                else
+                {
+                    playerAnim.SetTrigger("left_strafe");
+                    //playerAnim.ResetTrigger("run");
+                    targetPosition = leftPosition;
+                    isStrafing = true;
 
+                }
+                isStrafing = false;
             }
-            //StartCoroutine(StrafeCooldown());
+
+            if ((Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) && targetPosition != rightPosition)
+            {
+                if (targetPosition == leftPosition)
+                {
+                    playerAnim.SetTrigger("right_strafe");
+                    playerAnim.ResetTrigger("run");
+                    targetPosition = middlePosition;
+                    isStrafing = true;
+                }
+                else
+                {
+                    playerAnim.SetTrigger("right_strafe");
+                    playerAnim.ResetTrigger("run");
+                    targetPosition = rightPosition;
+                    isStrafing = true;
+                }
+                isStrafing = false;
+            }
         }
 
-        if ((Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) && targetPosition != rightPosition)
+        if (!isJumping && !IsStrafeAnimPlaying() && Input.GetKeyDown(KeyCode.Space))
         {
-            if (targetPosition == leftPosition)
-            {
-                playerAnim.SetTrigger("right_strafe");
-                playerAnim.ResetTrigger("run");
-                targetPosition = middlePosition;
-            }
-            else
-            {
-                playerAnim.SetTrigger("right_strafe");
-                playerAnim.ResetTrigger("run");
-                targetPosition = rightPosition;
-            }
-            //StartCoroutine(StrafeCooldown());
+            StartCoroutine(Jump());
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
-        {
-            StartCoroutine(Jump());         
-        }
     }
 
-    private IEnumerator StrafeCooldown()
+    private bool IsStrafeAnimPlaying()
     {
-        isStrafing = true;
-        yield return new WaitForSeconds(jumpCas);
-        isStrafing = false;
+        if (playerAnim != null)
+        {
+            AnimatorStateInfo stateInfo = playerAnim.GetCurrentAnimatorStateInfo(0);
+            // Skontroluj, èi je animácia strafe v aktívnom stave
+            return stateInfo.IsName("left_strafe_anim") || stateInfo.IsName("right_strafe_anim");
+        }
+        return false;
     }
 
     private IEnumerator Jump()
@@ -133,6 +143,8 @@ public class PohybHraca : MonoBehaviour
 
         transform.position = startPos;
         isJumping = false;
+
+        isStrafing = false;
     }
 
 
