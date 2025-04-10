@@ -13,6 +13,10 @@ public class PohybHraca : MonoBehaviour
 
     private bool isJumping = false;
     private bool isStrafing = false;
+    private bool isRolling = false;
+
+    private float lastRollTime = -Mathf.Infinity;
+    private float actionCooldown = 2.0f;
 
     public Animator playerAnim;
     private Vector3 leftPosition = new Vector3(15.12413f, 1.055456f, -18.66f);
@@ -35,7 +39,7 @@ public class PohybHraca : MonoBehaviour
 
         if (playerAnim != null)
         {
-            if (transform.position == targetPosition && !isJumping && !isStrafing)
+            if (transform.position == targetPosition && !isJumping && !isStrafing && !isRolling)
             {
                 playerAnim.SetTrigger("run");
             }
@@ -51,9 +55,9 @@ public class PohybHraca : MonoBehaviour
 
         if (playerAnim == null) return;
 
-        if (!isJumping)
+        if (!isJumping && !isStrafing)
         {
-            if ((Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) && targetPosition != leftPosition)
+            if ((Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) && targetPosition != leftPosition && !isRolling)
             {
                 if (targetPosition == rightPosition)
                 {
@@ -72,7 +76,7 @@ public class PohybHraca : MonoBehaviour
             }
 
 
-            if ((Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) && targetPosition != rightPosition)
+            if ((Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) && targetPosition != rightPosition && !isRolling)
             {
                 if (targetPosition == leftPosition)
                 {
@@ -91,21 +95,18 @@ public class PohybHraca : MonoBehaviour
 
         }
 
-        if (!isJumping && !isStrafing && Input.GetKeyDown(KeyCode.Space))
+        if (!isJumping && !isStrafing && !isRolling && Input.GetKeyDown(KeyCode.Space))
         {
             StartCoroutine(Jump());
         }
 
-    }
-
-    private bool IsStrafeAnimPlaying()
-    {
-        if (playerAnim != null)
+        if (!isJumping && !isStrafing && !isRolling && Input.GetKeyDown(KeyCode.S)
+            && Time.time - lastRollTime >= actionCooldown)
         {
-            AnimatorStateInfo stateInfo = playerAnim.GetCurrentAnimatorStateInfo(0);
-            return stateInfo.IsName("left_strafe_anim") || stateInfo.IsName("right_strafe_anim");
+            lastRollTime = Time.time;
+            StartCoroutine(Roll());
         }
-        return false;
+
     }
 
     public void FinishStrafe()
@@ -150,5 +151,43 @@ public class PohybHraca : MonoBehaviour
 
     }
 
+    private IEnumerator Roll()
+    {
+        isRolling = true;
+
+        if (playerAnim != null)
+        {
+            playerAnim.SetTrigger("roll");
+            playerAnim.ResetTrigger("run");
+        }
+
+
+        Vector3 originalPosition = transform.position;
+        Vector3 pronePosition = new Vector3(originalPosition.x, originalPosition.y - 0.5f, originalPosition.z);
+
+
+        AnimatorStateInfo stateInfo = playerAnim.GetCurrentAnimatorStateInfo(0);
+        float rollDuration = stateInfo.length;
+
+        float rollTime = 0f;
+
+
+        while (rollTime < rollDuration)
+        {
+            transform.position = Vector3.Lerp(originalPosition, pronePosition, rollTime / rollDuration);
+            rollTime += Time.deltaTime;
+            yield return null;
+        }
+
+        float upTime = 0f;
+        while (upTime < rollDuration / 2)
+        {
+            transform.position = Vector3.Lerp(pronePosition, originalPosition, upTime / (rollDuration / 2));
+            upTime += Time.deltaTime;
+            yield return null;
+        }
+        transform.position = originalPosition;
+        isRolling = false;
+    }
 
 }
