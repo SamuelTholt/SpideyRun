@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: car1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 539478baf56040e41836184ad795b210, type: 3}
+      propertyPath: m_TagString
+      value: Car
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -65,6 +69,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 539478baf56040e41836184ad795b210, type: 3}
       insertIndex: -1
       addedObject: {fileID: -7937392384697076206}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 539478baf56040e41836184ad795b210, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9114318147779114570}
   m_SourcePrefab: {fileID: 100100000, guid: 539478baf56040e41836184ad795b210, type: 3}
 --- !u!1 &4199285814500503348 stripped
 GameObject:
@@ -99,7 +106,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -132,3 +139,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &9114318147779114570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4199285814500503348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e09bdc3c01ae7f4f8307e6c913cf3c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Taby:
+  - Car

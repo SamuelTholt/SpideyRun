@@ -57,7 +57,7 @@ public class PohybHraca : MonoBehaviour
 
         if (!isJumping && !isStrafing)
         {
-            if ((Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) && targetPosition != leftPosition && !isRolling)
+            if ((Input.GetKeyDown(KeyCode.A)) && targetPosition != leftPosition && !isRolling)
             {
                 if (targetPosition == rightPosition)
                 {
@@ -76,7 +76,7 @@ public class PohybHraca : MonoBehaviour
             }
 
 
-            if ((Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) && targetPosition != rightPosition && !isRolling)
+            if ((Input.GetKeyDown(KeyCode.D)) && targetPosition != rightPosition && !isRolling)
             {
                 if (targetPosition == leftPosition)
                 {
