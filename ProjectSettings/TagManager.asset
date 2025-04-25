@@ -8,6 +8,7 @@ TagManager:
   - DestroyWall
   - DestroyCar
   - Car
+  - SpiderWeb
   layers:
   - Default
   - TransparentFX

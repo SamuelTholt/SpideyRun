@@ -38,8 +38,6 @@ public class PohybHraca : MonoBehaviour
 
     void Update()
     {
-        if (HracDotyk.isDead) return;
-
         Pohyb();
 
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);

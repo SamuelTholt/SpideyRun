@@ -28,7 +28,7 @@ public class CarMovement : MonoBehaviour
 
         if (other.gameObject.CompareTag("DestroyWall"))
         {
-            Debug.Log("Auto znièené: " + gameObject.name);
+            //Debug.Log("Auto znièené: " + gameObject.name);
             Destroy(gameObject);
         }
     }

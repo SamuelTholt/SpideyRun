@@ -9,11 +9,9 @@ public class HracDotyk : MonoBehaviour
 
     public AudioSource soundOfDead;
 
-    public static bool isDead = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -28,11 +26,21 @@ public class HracDotyk : MonoBehaviour
         {
             if (collider.gameObject.CompareTag("Car"))
             {
-                Debug.Log("Kolizia s: " + collider.gameObject.name);
-                isDead = true;
+                //Debug.Log("Kolizia s: " + collider.gameObject.name);
                 StartCoroutine(RestartScene());
             }
+
+            if (collider.gameObject.CompareTag("SpiderWeb"))
+            {
+                //Debug.Log("Hrac narazil na: " + collider.gameObject.name);
+                if (GameManager.Instance != null)
+                {
+                    GameManager.Instance.plusCountTakenWebs();
+                } 
+                Destroy(collider.gameObject);
+            }
         }
+
     }
 
     private IEnumerator RestartScene()
@@ -42,8 +50,20 @@ public class HracDotyk : MonoBehaviour
             soundOfDead.Play();
             yield return new WaitForSeconds(soundOfDead.clip.length);
         }
-        isDead = false;
-        SceneManager.LoadScene("SampleScene");
+
+        if (GameManager.Instance != null)
+        {
+            Destroy(transform.root.gameObject);
+            GameManager.Instance.EndGame();
+        }
+        else
+        {
+            Debug.LogError("GameManager instance nie je k dispozícii!");
+        }
+    }
+
+    public void DestroyPlayer()
+    {
         Destroy(gameObject);
     }
 }

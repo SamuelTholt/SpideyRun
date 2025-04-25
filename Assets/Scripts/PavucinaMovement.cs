@@ -23,7 +23,7 @@ public class PavucinaMovement : MonoBehaviour
 
         if (other.gameObject.CompareTag("DestroyWall"))
         {
-            Debug.Log("Pavucina znièená: " + gameObject.name);
+            //Debug.Log("Pavucina znièená: " + gameObject.name);
             Destroy(gameObject);
         }
     }
