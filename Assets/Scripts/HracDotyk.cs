@@ -10,6 +10,10 @@ public class HracDotyk : MonoBehaviour
 
     public AudioSource soundOfDead;
 
+    public AudioSource hitSound;
+
+    public AudioSource pickSound;
+
     public int maxZivotyHraca = 3;
     public List<RawImage> zivotyHraca;
 
@@ -46,6 +50,10 @@ public class HracDotyk : MonoBehaviour
                 //Debug.Log("Hrac narazil na: " + collider.gameObject.name);
                 if (GameManager.Instance != null)
                 {
+                    if (pickSound != null)
+                    {
+                        pickSound.Play();
+                    }
                     GameManager.Instance.plusCountTakenWebs();
                 } 
                 Destroy(collider.gameObject);
@@ -70,6 +78,12 @@ public class HracDotyk : MonoBehaviour
         if (aktualnyPocetZivotov <= 0)
         {
             StartCoroutine(RestartScene());
+        }
+        else {
+            if (hitSound != null)
+            {
+                hitSound.Play();
+            }
         }
     }
 

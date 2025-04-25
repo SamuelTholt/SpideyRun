@@ -29,6 +29,8 @@ public class PohybHraca : MonoBehaviour
 
     public AudioSource soundOfRoll;
 
+    public AudioSource soundOfStrafe;
+
 
     void Start()
     {
@@ -64,6 +66,10 @@ public class PohybHraca : MonoBehaviour
         {
             if ((Input.GetKeyDown(KeyCode.A)) && targetPosition != leftPosition && !isRolling)
             {
+                if (soundOfStrafe != null) 
+                { 
+                    soundOfStrafe.Play();
+                }
                 if (targetPosition == rightPosition)
                 {
                     playerAnim.SetTrigger("left_strafe");
@@ -83,6 +89,10 @@ public class PohybHraca : MonoBehaviour
 
             if ((Input.GetKeyDown(KeyCode.D)) && targetPosition != rightPosition && !isRolling)
             {
+                if (soundOfStrafe != null)
+                {
+                    soundOfStrafe.Play();
+                }
                 if (targetPosition == leftPosition)
                 {
                     playerAnim.SetTrigger("right_strafe");
