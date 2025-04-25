@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class HracDotyk : MonoBehaviour
 {
@@ -9,9 +10,19 @@ public class HracDotyk : MonoBehaviour
 
     public AudioSource soundOfDead;
 
+    public int maxZivotyHraca = 3;
+    public List<RawImage> zivotyHraca;
+
+    private int aktualnyPocetZivotov;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        aktualnyPocetZivotov = maxZivotyHraca;
+        if (zivotyHraca != null)
+        {
+            UpdateHeartsUI();
+        }
     }
 
     // Update is called once per frame
@@ -27,7 +38,7 @@ public class HracDotyk : MonoBehaviour
             if (collider.gameObject.CompareTag("Car"))
             {
                 //Debug.Log("Kolizia s: " + collider.gameObject.name);
-                StartCoroutine(RestartScene());
+                OdoberHP(1);
             }
 
             if (collider.gameObject.CompareTag("SpiderWeb"))
@@ -42,6 +53,32 @@ public class HracDotyk : MonoBehaviour
         }
 
     }
+
+    void UpdateHeartsUI()
+    {
+        for (int i = 0; i < zivotyHraca.Count; i++)
+        {
+            zivotyHraca[i].gameObject.SetActive(i == aktualnyPocetZivotov - 1);
+        }
+    }
+
+    public void OdoberHP(int pocet)
+    {
+        aktualnyPocetZivotov = Mathf.Max(0, aktualnyPocetZivotov - pocet);
+        UpdateHeartsUI();
+
+        if (aktualnyPocetZivotov <= 0)
+        {
+            StartCoroutine(RestartScene());
+        }
+    }
+
+    public void PridajHP(int pocet)
+    {
+        aktualnyPocetZivotov = Mathf.Min(maxZivotyHraca, aktualnyPocetZivotov + pocet);
+        UpdateHeartsUI();
+    }
+
 
     private IEnumerator RestartScene()
     {
