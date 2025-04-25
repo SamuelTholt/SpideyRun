@@ -1563,6 +1563,58 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &1660985482
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1660985484}
+  - component: {fileID: 1660985483}
+  m_Layer: 0
+  m_Name: PavucinaSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1660985483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660985482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49b345040de56574399ccca497566d93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  webPrefab: {fileID: 5120324618699730395, guid: a0eb44b949d2c77469111a456274a13d, type: 3}
+  spawnPoints:
+  - {fileID: 1922185376}
+  - {fileID: 1734182618}
+  - {fileID: 154100031}
+  spawnInterval: 0.5
+  spawnTime: 0.5
+  turnSpeed: 90
+--- !u!4 &1660985484
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660985482}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -76.08, y: 7.0086265, z: -13.853155}
+  m_LocalScale: {x: 1, y: 52.598648, z: 65.054016}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1673131553
 GameObject:
   m_ObjectHideFlags: 0
@@ -1849,3 +1901,4 @@ SceneRoots:
   - {fileID: 154100031}
   - {fileID: 1734182618}
   - {fileID: 1367580174}
+  - {fileID: 1660985484}
