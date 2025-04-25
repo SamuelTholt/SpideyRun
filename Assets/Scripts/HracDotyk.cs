@@ -6,6 +6,10 @@ using UnityEngine.SceneManagement;
 public class HracDotyk : MonoBehaviour
 {
     public List<string> Taby;
+
+    public AudioSource soundOfDead;
+
+    public static bool isDead = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -25,6 +29,7 @@ public class HracDotyk : MonoBehaviour
             if (collider.gameObject.CompareTag("Car"))
             {
                 Debug.Log("Kolizia s: " + collider.gameObject.name);
+                isDead = true;
                 StartCoroutine(RestartScene());
             }
         }
@@ -32,7 +37,12 @@ public class HracDotyk : MonoBehaviour
 
     private IEnumerator RestartScene()
     {
-        yield return new WaitForSeconds(0.1f);
+        if (soundOfDead != null)
+        {
+            soundOfDead.Play();
+            yield return new WaitForSeconds(soundOfDead.clip.length);
+        }
+        isDead = false;
         SceneManager.LoadScene("SampleScene");
         Destroy(gameObject);
     }

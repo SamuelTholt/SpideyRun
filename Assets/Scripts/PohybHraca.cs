@@ -25,6 +25,11 @@ public class PohybHraca : MonoBehaviour
 
     private Vector3 targetPosition;
 
+    public AudioSource soundOfJump;
+
+    public AudioSource soundOfRoll;
+
+
     void Start()
     {
         targetPosition = middlePosition;
@@ -33,6 +38,8 @@ public class PohybHraca : MonoBehaviour
 
     void Update()
     {
+        if (HracDotyk.isDead) return;
+
         Pohyb();
 
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
@@ -133,6 +140,12 @@ public class PohybHraca : MonoBehaviour
         Vector3 startPos = transform.position;
         Vector3 peakPos = new Vector3(startPos.x, startPos.y + jumpVyska, startPos.z);
 
+
+        if (soundOfJump != null) 
+        { 
+            soundOfJump.Play();
+        }
+
         float elapsedTime = 0f;
 
         // Skok hore
@@ -175,6 +188,12 @@ public class PohybHraca : MonoBehaviour
         Vector3 targetCenter = new Vector3(originalCenter.x, originalCenter.y - 0.5f, originalCenter.z);
 
         float rollDuration = playerAnim.GetCurrentAnimatorStateInfo(0).length;
+
+        if (soundOfRoll != null)
+        {
+            soundOfRoll.Play();
+        }
+
         float time = 0f;
 
         while (time < rollDuration / 2)
