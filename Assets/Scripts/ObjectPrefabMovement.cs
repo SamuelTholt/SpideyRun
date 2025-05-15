@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PavucinaMovement : MonoBehaviour
+public class ObjectPrefabMovement : MonoBehaviour
 {
     public float rychlostPohybu = 25.0f;
     private Vector3 smerPohybu = Vector3.right;

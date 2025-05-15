@@ -16,6 +16,11 @@ public class CarMovement : MonoBehaviour
         else {
             smerPohybu = Vector3.right;
         }
+
+        if (GameManager.Instance != null)
+        {
+            rychlostPohybu = GameManager.Instance.baseCarSpeed;
+        }
     }
     void Update()
     {
@@ -31,5 +36,11 @@ public class CarMovement : MonoBehaviour
             //Debug.Log("Auto znièené: " + gameObject.name);
             Destroy(gameObject);
         }
+    }
+
+    public void ZvysRychlost() 
+    {
+        rychlostPohybu = Mathf.Min(rychlostPohybu + 0.05f, 35f);
+
     }
 }

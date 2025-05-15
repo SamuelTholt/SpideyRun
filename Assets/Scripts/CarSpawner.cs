@@ -5,7 +5,7 @@ public class CarSpawner : MonoBehaviour
 {
     public GameObject[] carPrefabs;
     public Transform[] spawnPoints;
-    public float spawnInterval = 2.0f;
+    public float spawnInterval = 1.5f;
     void Start()
     {
         InvokeRepeating(nameof(SpawnCar), 1.0f, spawnInterval);
@@ -75,5 +75,11 @@ public class CarSpawner : MonoBehaviour
                 Debug.LogWarning("Materiál 'CarColor' nebol nájdený na " + car.name);
             }
         }
+    }
+
+    public void ZvysSpawnInterval() 
+    {
+        spawnInterval = Mathf.Max(0.8f, spawnInterval - 0.005f);
+
     }
 }

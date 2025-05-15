@@ -9,6 +9,8 @@ TagManager:
   - DestroyCar
   - Car
   - SpiderWeb
+  - HPBoost
+  - ScoreBoost
   layers:
   - Default
   - TransparentFX

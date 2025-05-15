@@ -13,6 +13,7 @@ public class HracDotyk : MonoBehaviour
     public AudioSource hitSound;
 
     public AudioSource pickSound;
+    public AudioSource boostSound;
 
     public int maxZivotyHraca = 3;
     public List<RawImage> zivotyHraca;
@@ -54,9 +55,37 @@ public class HracDotyk : MonoBehaviour
                     {
                         pickSound.Play();
                     }
-                    GameManager.Instance.plusCountTakenWebs();
+                    GameManager.Instance.PlusCountTakenWebs(1);
                 } 
                 Destroy(collider.gameObject);
+            }
+
+            if (collider.gameObject.CompareTag("HPBoost"))
+            {
+                Debug.Log("Hrac narazil na: " + collider.gameObject.name);
+
+                if (boostSound != null) 
+                { 
+                    boostSound.Play();
+                }
+                PridajHP(1);
+                Destroy(collider.gameObject);
+
+            }
+
+            if (collider.gameObject.CompareTag("ScoreBoost"))
+            {
+                //Debug.Log("Hrac narazil na: " + collider.gameObject.name);
+                if (GameManager.Instance != null)
+                {
+                    if (boostSound != null)
+                    {
+                        boostSound.Play();
+                    }
+                    GameManager.Instance.PlusCountTakenWebs(10);
+                }
+                Destroy(collider.gameObject);
+
             }
         }
 
