@@ -42,8 +42,11 @@ public class HracDotyk : MonoBehaviour
         {
             if (collider.gameObject.CompareTag("Car"))
             {
-                //Debug.Log("Kolizia s: " + collider.gameObject.name);
-                OdoberHP(1);
+                PohybHraca pohybHraca = transform.parent.GetComponent<PohybHraca>();
+                if (pohybHraca != null && !pohybHraca.JeNeznicitelny())
+                {
+                    OdoberHP(1);
+                }
             }
 
             if (collider.gameObject.CompareTag("SpiderWeb"))
@@ -69,6 +72,23 @@ public class HracDotyk : MonoBehaviour
                     boostSound.Play();
                 }
                 PridajHP(1);
+                Destroy(collider.gameObject);
+
+            }
+
+            if (collider.gameObject.CompareTag("Shield"))
+            {
+                Debug.Log("Hrac narazil na: " + collider.gameObject.name);
+
+                PohybHraca pohybHraca = transform.parent.GetComponent<PohybHraca>();
+                if (pohybHraca != null && !pohybHraca.JeNeznicitelny())
+                {
+                    if (boostSound != null)
+                    {
+                        boostSound.Play();
+                    }
+                    pohybHraca.AktivovatNeznicitelnost(10);
+                }
                 Destroy(collider.gameObject);
 
             }

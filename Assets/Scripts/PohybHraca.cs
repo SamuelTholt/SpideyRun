@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class PohybHraca : MonoBehaviour
 {
@@ -31,11 +32,21 @@ public class PohybHraca : MonoBehaviour
 
     public AudioSource soundOfStrafe;
 
+    public GameObject shield;
+
+
+    private bool neznicitelny = false; 
+    private float neznicitelnyCas = 0f;
 
     void Start()
     {
         targetPosition = middlePosition;
         transform.position = middlePosition;
+
+        if (shield != null)
+        {
+            shield.SetActive(false);
+        }
     }
 
     void Update()
@@ -55,6 +66,7 @@ public class PohybHraca : MonoBehaviour
                 playerAnim.ResetTrigger("run");
             }
         }
+        KontrolaNeznicitelnosti();
     }
 
     private void Pohyb()
@@ -226,6 +238,50 @@ public class PohybHraca : MonoBehaviour
         capsule.center = originalCenter;
 
         isRolling = false;
+    }
+
+
+    private void KontrolaNeznicitelnosti()
+    {
+        if (neznicitelny)
+        {
+            neznicitelnyCas -= Time.deltaTime;
+            if (neznicitelnyCas <= 0f)
+            {
+                DeaktivovatNeznicitelnost();
+            }
+        }
+    }
+
+    public bool JeNeznicitelny()
+    {
+        return neznicitelny;
+    }
+
+    public void AktivovatNeznicitelnost(float trvanie)
+    {
+        neznicitelny = true;
+        neznicitelnyCas = trvanie;
+
+        // Zobraz shield
+        if (shield != null)
+        {
+            shield.SetActive(true);
+        }
+
+        Debug.Log($"Neznièite¾nos aktivovaná na {trvanie} sekúnd.");
+    }
+
+    public void DeaktivovatNeznicitelnost()
+    {
+        neznicitelny = false;
+
+        if (shield != null)
+        {
+            shield.SetActive(false);
+        }
+
+        Debug.Log("Neznièite¾nos vypršala.");
     }
 
 

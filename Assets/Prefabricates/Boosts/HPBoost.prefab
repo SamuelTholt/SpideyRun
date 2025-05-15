@@ -230,7 +230,6 @@ GameObject:
   - component: {fileID: 6622318148938760515}
   - component: {fileID: -9078907889200329787}
   - component: {fileID: 3949106226201944491}
-  - component: {fileID: -9014326089067651585}
   m_Layer: 0
   m_Name: HPBoost
   m_TagString: HPBoost
@@ -369,18 +368,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rychlostPohybu: 25
---- !u!114 &-9014326089067651585
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9096033721898094709}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fca8567f98dc0b44afba3693b438e49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Taby:
-  - Player
-  pocetPridanychZivotov: 1
