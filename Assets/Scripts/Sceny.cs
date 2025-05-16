@@ -31,12 +31,12 @@ public class Sceny : MonoBehaviour
 
     public void prepniDoStatov()
     {
-        SceneManager.LoadScene("Stats");
+        SceneManager.LoadScene("StatsScene");
     }
 
     public void prepniDoGameOver()
     {
-        SceneManager.LoadScene("GameOver");
+        SceneManager.LoadScene("GameOverScene");
     }
 
     public void Koniec()
