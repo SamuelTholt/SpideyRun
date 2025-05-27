@@ -43,11 +43,20 @@ public class GameManager : MonoBehaviour
         Instance = this;
         transform.SetParent(null); // môeš odstráni, ak nie je potrebné
         // DontDestroyOnLoad(gameObject); // VYMAZA alebo zakomentova tento riadok
+
+        if (AudioManager.Instance == null)
+        {
+            AudioManager.GetInstance();
+        }
     }
 
     void Start()
     {
-       
+        // Aplikovanie audio nastavení na zaèiatku scény
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.ApplyAudioSettings();
+        }
     }
 
 
