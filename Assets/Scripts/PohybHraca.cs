@@ -19,6 +19,9 @@ public class PohybHraca : MonoBehaviour
     private float lastRollTime = -Mathf.Infinity;
     private float actionCooldown = 1.5f;
 
+    private float lastStrafeTime = -Mathf.Infinity;
+    private float strafeCooldown = 0.7f;
+
     public Animator playerAnim;
     private Vector3 leftPosition = new Vector3(15.12413f, 1.055456f, -18.66f);
     private Vector3 middlePosition = new Vector3(15.12413f, 1.055456f, -13.87f);
@@ -74,52 +77,64 @@ public class PohybHraca : MonoBehaviour
 
         if (playerAnim == null) return;
 
-        if (!isJumping && !isStrafing)
+        // Strafe iba ak nie je žiadna akcia aktívna A je po cooldowne
+        if (!isJumping && !isStrafing && Time.time - lastStrafeTime >= strafeCooldown)
         {
-            if ((Input.GetKeyDown(KeyCode.A)) && targetPosition != leftPosition && !isRolling)
-            {
-                if (soundOfStrafe != null) 
-                { 
-                    soundOfStrafe.Play();
-                }
-                if (targetPosition == rightPosition)
-                {
-                    playerAnim.SetTrigger("left_strafe");
-                    //playerAnim.ResetTrigger("run");
-                    targetPosition = middlePosition;
-                }
-                else
-                {
-                    playerAnim.SetTrigger("left_strafe");
-                    //playerAnim.ResetTrigger("run");
-                    targetPosition = leftPosition;
-
-                }
-                isStrafing = true;
-            }
-
-
-            if ((Input.GetKeyDown(KeyCode.D)) && targetPosition != rightPosition && !isRolling)
+            // LEFT STRAFE
+            if (Input.GetKeyDown(KeyCode.A) && targetPosition != leftPosition && !isRolling)
             {
                 if (soundOfStrafe != null)
                 {
                     soundOfStrafe.Play();
                 }
-                if (targetPosition == leftPosition)
+
+                // Resetuj všetky triggery pred nastavením nového
+                playerAnim.ResetTrigger("left_strafe");
+                playerAnim.ResetTrigger("right_strafe");
+                playerAnim.ResetTrigger("run");
+
+                playerAnim.SetTrigger("left_strafe");
+
+                if (targetPosition == rightPosition)
                 {
-                    playerAnim.SetTrigger("right_strafe");
-                    //playerAnim.ResetTrigger("run");
                     targetPosition = middlePosition;
                 }
                 else
                 {
-                    playerAnim.SetTrigger("right_strafe");
-                    //playerAnim.ResetTrigger("run");
-                    targetPosition = rightPosition;
+                    targetPosition = leftPosition;
                 }
+
                 isStrafing = true;
+                lastStrafeTime = Time.time; // Nastav èas posledného strafe
             }
 
+            // RIGHT STRAFE
+            else if (Input.GetKeyDown(KeyCode.D) && targetPosition != rightPosition && !isRolling)
+            {
+                if (soundOfStrafe != null)
+                {
+                    soundOfStrafe.Play();
+                }
+
+                // Resetuj všetky triggery pred nastavením nového
+                playerAnim.ResetTrigger("left_strafe");
+                playerAnim.ResetTrigger("right_strafe");
+                playerAnim.ResetTrigger("run");
+
+                playerAnim.SetTrigger("right_strafe");
+
+                if (targetPosition == leftPosition)
+                {
+                    targetPosition = middlePosition;
+                }
+                else
+                {
+                    targetPosition = rightPosition;
+                }
+
+                isStrafing = true;
+                lastStrafeTime = Time.time; // Nastav èas posledného strafe
+            }
         }
 
         if (!isJumping && !isStrafing && !isRolling && Input.GetKeyDown(KeyCode.Space))
