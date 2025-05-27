@@ -2786,7 +2786,7 @@ MonoBehaviour:
   masterVolumeText: {fileID: 461657178}
   musicVolumeText: {fileID: 1272329024}
   sfxVolumeText: {fileID: 1570990269}
-  debugMode: 1
+  debugMode: 0
 --- !u!1 &1870607250
 GameObject:
   m_ObjectHideFlags: 0
