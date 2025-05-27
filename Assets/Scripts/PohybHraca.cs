@@ -54,6 +54,7 @@ public class PohybHraca : MonoBehaviour
 
     void Update()
     {
+        if (Time.timeScale == 0f) return;
         Pohyb();
 
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);

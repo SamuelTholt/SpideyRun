@@ -28,27 +28,28 @@ public class GameManager : MonoBehaviour
     public float baseCarSpeed = 25.0f;
 
     private float cas = 0f;
+
+    private bool hraJePozastavena = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-            Debug.Log("Inötancia GameManager bola vytvoren·.");
-        }
-        else
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
-            Debug.Log("Duplicitn˝ GameManager bol zniËen˝.");
+            return;
         }
+
+        Instance = this;
+        transform.SetParent(null); // mÙûeö odstr·niù, ak nie je potrebnÈ
+        // DontDestroyOnLoad(gameObject); // VYMAZAç alebo zakomentovaù tento riadok
     }
 
     void Start()
     {
-        
+       
     }
+
 
     // Update is called once per frame
     void Update()
@@ -60,6 +61,21 @@ public class GameManager : MonoBehaviour
 
         UpdateSpeed();
         UpdateInterval();
+    }
+
+    // Pozastavenie a obnovenie hry
+    public void PrepinacPozastavenia()
+    {
+        hraJePozastavena = !hraJePozastavena;
+
+        if (hraJePozastavena)
+        {
+            Time.timeScale = 0f; // PozastavÌ Ëas v hre
+        }
+        else
+        {
+            Time.timeScale = 1f; // ObnovÌ Ëas v hre
+        }
     }
 
     public void UpdateSpeed() 
