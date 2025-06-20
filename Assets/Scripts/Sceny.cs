@@ -34,6 +34,11 @@ public class Sceny : MonoBehaviour
         SceneManager.LoadScene("StatsScene");
     }
 
+    public void prepniDoCredits()
+    {
+        SceneManager.LoadScene("CreditsScene");
+    }
+
     public void prepniDoGameOver()
     {
         SceneManager.LoadScene("GameOverScene");
